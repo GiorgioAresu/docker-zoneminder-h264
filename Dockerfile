@@ -44,7 +44,7 @@ RUN apt-get update && apt-get install -y \
     && a2enconf zoneminder \
     && a2enmod cgi \
     && a2enmod rewrite \
-    && sed  -i 's#\;date.timezone =#date.timezone = \"${TZ}\"#' /etc/php/7.0/apache2/php.ini && \
+    && sed  -i 's#\;date.timezone =#date.timezone = \"${TZ}\"#' /etc/php/7.0/apache2/php.ini \
     && service apache2 restart \
     && service mysql restart \
     && wget http://www.andywilcock.com/code/cambozola/cambozola-latest.tar.gz \
