@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
         apache2 \
         curl \
         ffmpeg \
+        gdebi-core \
         git \
         libapache2-mod-php \
         libav-tools \
@@ -35,7 +36,7 @@ RUN apt-get update && apt-get install -y \
     && cp --remove-destination /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/my.cnf \
     && sed '/\[mysqld\]/a sql_mode = NO_ENGINE_SUBSTITUTION' /etc/mysql/my.cnf \
     && service mysql restart \
-    && dpkg --install zoneminder_*.deb \
+    && gdebi zoneminder_*.deb \
     && mysql -uroot -p < /usr/share/zoneminder/db/zm_create.sql \
     && mysql -uroot -p -e "grant select,insert,update,delete,create,alter,index,lock tables on zm.* to 'zmuser'@localhost identified by 'zmpass';" \
     && chmod 740 /etc/zm/zm.conf \
