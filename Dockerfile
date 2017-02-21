@@ -20,7 +20,10 @@ RUN \
 
 RUN \
 # Update base image
-    apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
+    apt-get update && \
+    apt-get upgrade -y -o Dpkg::Options::="--force-confold" && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN \
 # Update and install packages
