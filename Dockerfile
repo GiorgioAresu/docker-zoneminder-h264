@@ -48,8 +48,8 @@ RUN \
     # mv zoneminder_*.deb /var/cache/apt/archives/ && apt-get install -y zoneminder && \
 
 # Setup database
-    cp --remove-destination /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/my.cnf && \
-    sed '/\[mysqld\]/a sql_mode = NO_ENGINE_SUBSTITUTION' /etc/mysql/my.cnf && \
+    rm /etc/mysql/my.cnf && \
+    sed '/\[mysqld\]/a sql_mode = NO_ENGINE_SUBSTITUTION' /etc/mysql/mysql.conf.d/mysqld.cnf > /etc/mysql/my.cnf && \
     service mysql restart && \
     mysql -uroot < /usr/share/zoneminder/db/zm_create.sql && \
     mysql -uroot -e "grant select,insert,update,delete,create,alter,index,lock tables on zm.* to 'zmuser'@localhost identified by 'zmpass';" && \
