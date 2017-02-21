@@ -3,10 +3,10 @@
 #Search for config files, if they don't exist, copy the default ones
 if [ ! -f /config/php.ini ]; then
   echo "copying php.ini"
-  cp  /etc/php5/apache2/php.ini /config/php.ini
+  cp  /etc/php/7.0/apache2/php.ini /config/php.ini
 else
   echo "php.ini already exists"
-  cp /config/php.ini /etc/php5/apache2/php.ini
+  cp /config/php.ini /etc/php/7.0/apache2/php.ini
 fi
 
 # Copy mysql database if it doesn't exit
