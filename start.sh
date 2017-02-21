@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #Search for config files, if they don't exist, copy the default ones
 if [ ! -f /config/php.ini ]; then
