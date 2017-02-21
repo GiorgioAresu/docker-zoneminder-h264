@@ -15,7 +15,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 CMD ["/sbin/my_init"]
 
-RUN echo $TZ > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata
+#RUN echo $TZ > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata # Not working due to https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806
+RUN ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime && dpkg-reconfigure --frontend noninteractive tzdata
+
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 RUN apt-get update && apt-get install -y \
         apache2 \
