@@ -7,7 +7,7 @@ ENV TZ Europe/Rome
 VOLUME ["/config"]
 EXPOSE 80
 
-WORKDIR /tmp/*
+WORKDIR /tmp
 
 ARG DEBIAN_FRONTEND=noninteractive
 
