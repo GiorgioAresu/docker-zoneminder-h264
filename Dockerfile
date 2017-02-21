@@ -62,7 +62,7 @@ RUN \
     a2enconf zoneminder && \
     a2enmod cgi && \
     a2enmod rewrite && \
-    sed -i 's#\;date.timezone =#date.timezone = \"${TZ}\"#' /etc/php/7.0/apache2/php.ini && \
+    sed -i "s#\;date.timezone =#date.timezone = \"${TZ}\"#" /etc/php/7.0/apache2/php.ini && \
     service apache2 restart && \
 
 # Add cambozola
