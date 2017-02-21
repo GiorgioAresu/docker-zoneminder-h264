@@ -73,17 +73,9 @@ RUN \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY zoneminder /etc/init.d/zoneminder
-COPY start.sh /etc/init.d/start.sh
+ADD start.sh /etc/my_init.d/start.sh
 
-RUN chmod +x \
-        /etc/init.d/zoneminder \
-        /etc/init.d/start.sh \
-    && \
-    service apache2 restart && \
-    update-rc.d -f apache2 remove && \
-    update-rc.d -f mysql remove && \
-    update-rc.d -f zoneminder remove
+RUN chmod +x /etc/my_init.d/start.sh
 
 HEALTHCHECK --interval=5m --timeout=3s \
     CMD curl -f http://localhost/zm/api/versions.json || exit 1
