@@ -9,8 +9,6 @@ EXPOSE 80
 
 WORKDIR /tmp/*
 
-RUN echo true > /etc/container_environment/DEBCONF_NONINTERACTIVE_SEEN
-
 ARG DEBIAN_FRONTEND=noninteractive
 
 CMD ["/sbin/my_init"]
