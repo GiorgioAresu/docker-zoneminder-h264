@@ -14,41 +14,36 @@ ARG DEBIAN_FRONTEND=noninteractive
 CMD ["/sbin/my_init"]
 
 RUN \
-# Set timezone (see https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806)
-    ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime && \
-    dpkg-reconfigure --frontend noninteractive tzdata
-
-RUN \
 # Update base image
     apt-get update && \
     apt-get upgrade -y -o Dpkg::Options::="--force-confold" && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+ADD zoneminder_*.deb /tmp/
+
+RUN \
+# Set timezone (see https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806)
+    ln -fs /usr/share/zoneinfo/${TZ} /etc/localtime && \
+    dpkg-reconfigure --frontend noninteractive tzdata
+
 RUN \
 # Update and install packages
     apt-get update && \
     apt-get install -y \
         apache2 \
-        curl \
         ffmpeg \
         gdebi-core \
-        git \
         libapache2-mod-php \
         libav-tools \
         mysql-server \
         php \
         php-gd \
-        sudo \
         wget \
     && \
 
 # Compile zoneminder from source and install it
-    wget https://raw.githubusercontent.com/ZoneMinder/ZoneMinder/master/utils/do_debian_package.sh && \
-    chmod a+x do_debian_package.sh && \
-    yes '' | ./do_debian_package.sh `lsb_release -a 2>/dev/null | grep Codename | awk '{print $2}'`  `date +%Y%m%d`01 local feature-h264-videostorage && \
     yes y | gdebi zoneminder_*.deb && \
-    # mv zoneminder_*.deb /var/cache/apt/archives/ && apt-get install -y zoneminder && \
 
 # Setup database
     rm /etc/mysql/my.cnf && \
