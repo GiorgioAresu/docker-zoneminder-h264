@@ -39,6 +39,7 @@ RUN \
         mysql-server \
         php \
         php-gd \
+        sudo \
         wget \
     && \
 

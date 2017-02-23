@@ -12,7 +12,9 @@ fi
 # Copy mysql database if it doesn't exit
 if [ ! -d /config/mysql/mysql ]; then
   echo "moving mysql to config folder"
-  rm -r /config/mysql
+  if [ -d /config/mysql ]; then
+    rm -r /config/mysql
+  fi
   cp -p -R /var/lib/mysql /config/
 else
   echo "using existing mysql database"
